@@ -10,6 +10,12 @@
     />
     <br />
     <div v-if="showOptions" id="options-cont">
+      <div v-if="filterOptions.length === 0">
+        <p>
+          <br />
+          {{ noResultsMsg ? noResultsMsg : "No Results." }}
+        </p>
+      </div>
       <div
         id="item"
         v-for="(option, key) in filterOptions"
@@ -26,7 +32,7 @@
 
 <script>
 export default {
-  props: ["placeholder", "options", "label"],
+  props: ["placeholder", "options", "label", "noResultsMsg"],
   emits: ["onSelect"],
   data() {
     return {
