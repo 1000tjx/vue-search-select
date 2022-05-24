@@ -1,6 +1,9 @@
 # vue-search-select
 Easy and simple search select menu
 
+# Demo
+![](https://j.gifs.com/jYVnOy.gif)
+
 # Usage
 
 ```vue
