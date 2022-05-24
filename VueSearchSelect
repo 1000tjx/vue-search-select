@@ -1,7 +1,7 @@
 <template>
   <div id="s-select-cont">
     <input
-      autocomplete="false"
+      autocomplete="off"
       id="select-input"
       :placeholder="getPlaceHolder"
       @focus="focus"
