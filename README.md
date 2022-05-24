@@ -4,7 +4,7 @@ Easy and simple search select menu
 # Usage
 
 ```vue
-<SearchSelect
+<VueSearchSelect
   id="nat"
   label="name"
   placeholder="Pick a user..."
