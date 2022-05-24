@@ -5,7 +5,6 @@ Easy and simple search select menu
 
 ```vue
 <VueSearchSelect
-  id="nat"
   label="name"
   placeholder="Pick a user..."
   :options="[{name: 'Jhon', id: 1}, {name: 'Tareq', id: 2}]"
