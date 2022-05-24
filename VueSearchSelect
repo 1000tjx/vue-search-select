@@ -1,0 +1,139 @@
+<template>
+  <div id="s-select-cont">
+    <input
+      id="select-input"
+      :placeholder="getPlaceHolder"
+      @focus="focus"
+      @blur="unFocus"
+      v-model="query"
+    />
+    <br />
+    <div v-if="showOptions" id="options-cont">
+      <div
+        id="item"
+        v-for="(option, key) in filterOptions"
+        :key="key"
+        @click="() => selectOption(option)"
+      >
+        <span>
+          {{ option[label] }}
+        </span>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: ["placeholder", "options", "label"],
+  emits: ["onSelect"],
+  data() {
+    return {
+      showOptions: false,
+      query: "",
+      queryPlaceHolder: "",
+      oldOption: {},
+    };
+  },
+  methods: {
+    selectOption(option) {
+      console.log("1:", this.query);
+      this.oldOption = option;
+      this.query = option[this.label];
+      this.queryPlaceHolder = option[this.label];
+      this.showOptions = false;
+      this.$emit("onSelect", option);
+    },
+    focus() {
+      this.showOptions = true;
+      this.query = "";
+    },
+    unFocus() {
+      setTimeout(() => {
+        this.showOptions = false;
+        this.query = this.oldOption[this.label];
+      }, 150);
+    },
+  },
+  computed: {
+    filterOptions() {
+      return [...this.options].filter(
+        (option) =>
+          option[this.label]
+            ?.toString()
+            ?.trim()
+            ?.toLowerCase()
+            ?.includes(this.query.trim().toLowerCase()) || !this.query.trim()
+      );
+    },
+    getPlaceHolder() {
+      if (!this.queryPlaceHolder?.trim()) {
+        return this.placeholder;
+      } else {
+        return this.queryPlaceHolder;
+      }
+    },
+  },
+};
+</script>
+
+<style scoped>
+#select-input {
+  width: 100%;
+  border: 0px !important;
+  outline: none !important;
+}
+
+#select-input:focus {
+  outline: none;
+}
+#s-select-cont {
+  position: relative;
+}
+#options-cont {
+  position: absolute;
+  left: 0;
+  right: 0;
+  max-width: 100%;
+  background-color: white;
+  border: 1px solid rgb(209, 209, 209);
+  border-top: 0px;
+  max-height: 150px;
+  overflow: hidden;
+  overflow-y: scroll;
+  z-index: 9999;
+  font-size: 0.9em;
+}
+#item {
+  border-bottom: 1px solid rgb(204, 204, 204);
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  cursor: pointer;
+  padding: 3px 10px;
+}
+
+#item:hover {
+  background-color: var(--blue);
+  color: white;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px transparent;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(155, 155, 155);
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: gray;
+}
+</style>
