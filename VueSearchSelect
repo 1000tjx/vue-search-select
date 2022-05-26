@@ -8,7 +8,7 @@
       @focus="focus"
       @blur="unFocus"
       v-model="query"
-      @keyup="updateQuery"
+      @input="updateQuery"
     />
     <br />
     <div v-if="showOptions" id="options-cont">
@@ -43,6 +43,11 @@ export default {
     };
   },
   methods: {
+    reset() {
+      this.query = "";
+      this.oldOption = {};
+      this.queryPlaceHolder = "";
+    },
     updateQuery(e) {
       this.query = e.target.value;
     },
