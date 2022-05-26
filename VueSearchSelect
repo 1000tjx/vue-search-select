@@ -1,6 +1,7 @@
 <template>
   <div id="s-select-cont">
     <input
+      :disabled="disabled"
       autocomplete="off"
       id="select-input"
       :placeholder="getPlaceHolder"
@@ -31,7 +32,7 @@
 
 <script>
 export default {
-  props: ["placeholder", "options", "label", "noResultsMsg"],
+  props: ["placeholder", "options", "label", "noResultsMsg", "disabled"],
   emits: ["onSelect"],
   data() {
     return {
