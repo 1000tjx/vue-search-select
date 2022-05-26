@@ -47,7 +47,6 @@ export default {
       this.query = e.target.value;
     },
     selectOption(option) {
-      console.log("1:", this.query);
       this.oldOption = option;
       this.query = option[this.label];
       this.queryPlaceHolder = option[this.label];
