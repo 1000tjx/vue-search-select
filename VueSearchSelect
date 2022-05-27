@@ -38,7 +38,6 @@ export default {
     return {
       showOptions: false,
       query: "",
-      queryPlaceHolder: "",
       oldOption: {},
     };
   },
@@ -46,7 +45,6 @@ export default {
     reset() {
       this.query = "";
       this.oldOption = {};
-      this.queryPlaceholder = "";
     },
     updateQuery(e) {
       this.query = e.target.value;
@@ -54,7 +52,6 @@ export default {
     selectOption(option) {
       this.oldOption = option;
       this.query = option[this.label];
-      this.queryPlaceholder = option[this.label];
       this.showOptions = false;
       this.$emit("onSelect", option);
     },
@@ -81,11 +78,8 @@ export default {
       );
     },
     getPlaceHolder() {
-      if (!this.queryPlaceholder?.trim()) {
-        return this.placeholder;
-      } else {
-        return this.queryPlaceholder;
-      }
+      if (this.label in this.oldOption) return this.oldOption[this.label];
+      return this.placeholder;
     },
   },
 };
