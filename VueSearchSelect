@@ -12,7 +12,7 @@
     />
     <br />
     <div v-if="showOptions" class="options-cont">
-      <div v-if="filterOptions.length === 0">
+      <div class="ss-no-result-class" v-if="filterOptions.length === 0">
         <p>
           <br />
           {{ noResultsMsg ? noResultsMsg : "No Results." }}
@@ -46,7 +46,7 @@ export default {
     reset() {
       this.query = "";
       this.oldOption = {};
-      this.queryPlaceHolder = "";
+      this.queryPlaceholder = "";
     },
     updateQuery(e) {
       this.query = e.target.value;
@@ -54,7 +54,7 @@ export default {
     selectOption(option) {
       this.oldOption = option;
       this.query = option[this.label];
-      this.queryPlaceHolder = option[this.label];
+      this.queryPlaceholder = option[this.label];
       this.showOptions = false;
       this.$emit("onSelect", option);
     },
@@ -81,10 +81,10 @@ export default {
       );
     },
     getPlaceHolder() {
-      if (!this.queryPlaceHolder?.trim()) {
+      if (!this.queryPlaceholder?.trim()) {
         return this.placeholder;
       } else {
-        return this.queryPlaceHolder;
+        return this.queryPlaceholder;
       }
     },
   },
@@ -92,6 +92,9 @@ export default {
 </script>
 
 <style scoped>
+.ss-no-result-class {
+  padding: 2px 10px;
+}
 .select-input {
   width: 100%;
   border: 0px !important;
