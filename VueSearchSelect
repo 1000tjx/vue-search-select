@@ -11,7 +11,14 @@
       @input="updateQuery"
     />
     <br />
-    <div v-if="showOptions" class="options-cont">
+    <div
+      v-if="showOptions"
+      class="options-cont"
+      @mouseenter="isSelecting = true"
+      @mouseover="isSelecting = true"
+      @mouseleave="isSelecting = false"
+      @mouseout="isSelecting = false"
+    >
       <div class="ss-no-result-class" v-if="filterOptions.length === 0">
         <p>
           <br />
@@ -39,6 +46,7 @@ export default {
       showOptions: false,
       query: "",
       oldOption: {},
+      isSelecting: false,
     };
   },
   methods: {
@@ -53,6 +61,7 @@ export default {
       this.oldOption = option;
       this.query = option[this.label];
       this.showOptions = false;
+      this.isSelecting = false;
       this.$emit("onSelect", option);
     },
     focus() {
@@ -60,10 +69,11 @@ export default {
       this.query = "";
     },
     unFocus() {
-      setTimeout(() => {
+      console.log(this.isSelecting);
+      if (!this.isSelecting) {
         this.showOptions = false;
         this.query = this.oldOption[this.label];
-      }, 150);
+      }
     },
   },
   computed: {
